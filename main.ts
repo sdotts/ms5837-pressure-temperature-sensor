@@ -1,10 +1,52 @@
+enum SENS_MODEL {
+        //% block="02BA"
+        MOD_02BA = 0x0,
+        //% block="30BA"
+        MOD_30BA = 0x1
+}
 
 
 
-
+/**
+ * MS5837 block
+ */
+//% weight=100 color=#70c0f0 icon="\uf773" block="MS5837"
 namespace MS5837 {
-
+    let MS5837_I2C_ADDR = 0x76; //sensor address
+    let SENSOR_MODEL = SENS_MODEL.MOD_02BA; //Set Defualt Model
+    let PROM: number[] = []     //Prom Calibration
     
+    function reset():void {
+        pins.i2cWriteNumber(MS5837_I2C_ADDR, 0x1E, NumberFormat.UInt8BE)
+    }
+
+    function read_PROM():void {
+        PROM = []
+        for (let i = 0; i < 7; i++) {
+            pins.i2cWriteNumber(MS5837_I2C_ADDR, 0xA0 + i * 2, NumberFormat.UInt8BE)
+            let value = pins.i2cReadNumber(MS5837_I2C_ADDR, NumberFormat.UInt16BE)
+            PROM.push(value)
+        }
+    }
+
+    /**
+     * Initialize sensor
+     */
+    //% block="initialize MS5837"
+    export function init(): void {
+        reset()
+        read_PROM()
+    }
+
+    /**
+     * set sensor model
+     */
+    //% blockId="MS5837_SET_MODEL" block="set address %model"
+    //% weight=50 blockGap=8
+    export function Address(model: SENS_MODEL) {
+        SENSOR_MODEL = model
+    }
+
 }
 
 
@@ -26,12 +68,14 @@ namespace MS5837 {
 //     //% block="0x77"
 //     ADDR_0x77 = 0x77
 // }
-// /**
-//  * BMP280 block
-//  */
-// //% weight=100 color=#70c0f0 icon="\uf042" block="BMP280"
+/**
+ * BMP280 block
+ */
+//% weight=100 color=#70c0f0 icon="\uf042" block="BMP280"
 // namespace BMP280 {
 //     let BMP280_I2C_ADDR = BMP280_I2C_ADDRESS.ADDR_0x76
+
+//     function reset
 
 //     function setreg(reg: number, dat: number): void {
 //         let buf = pins.createBuffer(2);
@@ -132,12 +176,12 @@ namespace MS5837 {
 //         setreg(0xF4, 0)
 //     }
 
-//     /**
-//      * set I2C address
-//      */
-//     //% blockId="BMP280_SET_ADDRESS" block="set address %addr"
-//     //% weight=50 blockGap=8
-//     export function Address(addr: BMP280_I2C_ADDRESS) {
-//         BMP280_I2C_ADDR = addr
-//     }
+    // /**
+    //  * set I2C address
+    //  */
+    // //% blockId="BMP280_SET_ADDRESS" block="set address %addr"
+    // //% weight=50 blockGap=8
+    // export function Address(addr: BMP280_I2C_ADDRESS) {
+    //     BMP280_I2C_ADDR = addr
+    // }
 // }
