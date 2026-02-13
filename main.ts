@@ -1,5 +1,22 @@
 // Port of MS5837 Arduinio Library From Blue Robotics To MakeCode
 
+//Sensor Models
+enum model {
+    //% block="02BA"
+    MOD_02BA = 0x0,
+    //% block="30BA"
+    MOD_30BA = 0x1
+}
+
+
+//Common Densities
+enum waterDensity {
+    //% block="Fresh Water"
+    FRESH = 997,
+    //% block="Salt Water"
+    SALT = 1029
+}
+
 
 /**
  * MS5837 block
@@ -14,21 +31,7 @@ namespace MS5837 {
     const MS5837_CONVERT_D1_8192 = 0x4A;
     const MS5837_CONVERT_D2_8192 = 0x5A;
 
-    //Sensor Models
-    enum model {
-        //% block="02BA"
-        MOD_02BA = 0x0,
-        //% block="30BA"
-        MOD_30BA = 0x1
-    }
 
-    //Common Densities
-    enum waterDensity {
-        //% block="Fresh Water"
-        FRESH = 997,
-        //% block="Salt Water"
-        SALT = 1029
-    }
 
     //Defualt Values and Variables
     let fluidDensity = waterDensity.FRESH; //kg/m^3 for fresh water at 25C
@@ -94,7 +97,7 @@ namespace MS5837 {
      */
     //% blockId="MS5837_SET_MODEL" block="Set Model %model"
     //% weight=50 blockGap=8
-    export function set_model(model: model):void {
+    export function set_model(model: model): void {
         SENSOR_MODEL = model
     }
 
@@ -102,8 +105,18 @@ namespace MS5837 {
      * Initialize sensor
      */
     //% block="Print Prom MS5837"
-    export function printProm():void {
+    export function printProm(): void {
         serial.writeNumbers(PROM)
     }
+
+    /**
+     * set fluid density
+     */
+    //% blockId="MS5837_SET_DENSITY" block="Set %waterDensity"
+    //% weight=50 blockGap=8
+    export function set_density(density: waterDensity): void {
+        fluidDensity = density
+    }
+
 
 }

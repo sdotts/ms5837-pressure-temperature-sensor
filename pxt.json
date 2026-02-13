@@ -1,5 +1,5 @@
 {
-    "name": "MS5837 Pressure Temperature Sensor",
+    "name": "MS5837 Pressure Temperature Sensor - Copy",
     "description": "",
     "dependencies": {
         "core": "*",
