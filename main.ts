@@ -94,8 +94,16 @@ namespace MS5837 {
      */
     //% blockId="MS5837_SET_MODEL" block="Set Model %model"
     //% weight=50 blockGap=8
-    export function set_model(model: model) {
+    export function set_model(model: model):void {
         SENSOR_MODEL = model
+    }
+
+    /**
+     * Initialize sensor
+     */
+    //% block="Print Prom MS5837"
+    export function printProm():void {
+        serial.writeNumbers(PROM)
     }
 
 }
