@@ -4,7 +4,7 @@
 /**
  * MS5837 block
  */
-//% weight=100 color=#70c0f0 icon="\uf773" block="MS5837"
+//% weight=100 color=#70c0f0 icon="\uf13d" block="MS5837"
 namespace MS5837 {
     //Addresses and commands
     const MS5837_I2C_ADDR = 0x76;
