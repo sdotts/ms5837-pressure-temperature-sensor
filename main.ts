@@ -15,7 +15,7 @@ namespace MS5837 {
     const MS5837_CONVERT_D2_8192 = 0x5A;
 
     //Sensor Models
-    enum SENS_MODEL {
+    enum model {
         //% block="02BA"
         MOD_02BA = 0x0,
         //% block="30BA"
@@ -32,7 +32,7 @@ namespace MS5837 {
 
     //Defualt Values and Variables
     let fluidDensity = waterDensity.FRESH; //kg/m^3 for fresh water at 25C
-    let SENSOR_MODEL = SENS_MODEL.MOD_02BA; //Set Defualt Model
+    let SENSOR_MODEL = model.MOD_02BA; //Set Defualt Model
     let PROM: number[] = []     //Prom Calibration
 
 
@@ -94,7 +94,7 @@ namespace MS5837 {
      */
     //% blockId="MS5837_SET_MODEL" block="Set Model %model"
     //% weight=50 blockGap=8
-    export function model(model: SENS_MODEL) {
+    export function set_model(model: model) {
         SENSOR_MODEL = model
     }
 
