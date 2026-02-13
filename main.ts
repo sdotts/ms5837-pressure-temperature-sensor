@@ -82,7 +82,7 @@ namespace MS5837 {
     /**
      * Initialize sensor
      */
-    //% block="initialize MS5837"
+    //% block="Initialize MS5837"
     export function init(): void {
         reset()
         basic.pause(10)
@@ -92,7 +92,7 @@ namespace MS5837 {
     /**
      * set sensor model
      */
-    //% blockId="MS5837_SET_MODEL" block="set address %model"
+    //% blockId="MS5837_SET_MODEL" block="Set Model %model"
     //% weight=50 blockGap=8
     export function model(model: SENS_MODEL) {
         SENSOR_MODEL = model
